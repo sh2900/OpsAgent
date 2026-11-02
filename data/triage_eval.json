@@ -1,0 +1,153 @@
+
+[
+  {
+    "text": "I can't connect to the VPN from home, it keeps timing out",
+    "category": "VPN",
+    "urgency": "High"
+  },
+  {
+    "text": "VPN is very slow today but I can still work",
+    "category": "VPN",
+    "urgency": "Medium"
+  },
+  {
+    "text": "VPN client shows a certificate error when I log in",
+    "category": "VPN",
+    "urgency": "High"
+  },
+  {
+    "text": "Is there a way to get VPN access on my personal phone?",
+    "category": "VPN",
+    "urgency": "Low"
+  },
+  {
+    "text": "Cannot reach internal servers while travelling, remote access is down",
+    "category": "VPN",
+    "urgency": "High"
+  },
+  {
+    "text": "VPN disconnects every 10 minutes during my video calls",
+    "category": "VPN",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Remote tunnel will not establish, need to join the client demo in 30 minutes",
+    "category": "VPN",
+    "urgency": "High"
+  },
+  {
+    "text": "I'm locked out of my account after entering the wrong password several times",
+    "category": "Account",
+    "urgency": "High"
+  },
+  {
+    "text": "My password has expired and the system won't let me log in",
+    "category": "Account",
+    "urgency": "High"
+  },
+  {
+    "text": "Login says my account is disabled, I can't access anything",
+    "category": "Account",
+    "urgency": "High"
+  },
+  {
+    "text": "How often do I need to change my password?",
+    "category": "Account",
+    "urgency": "Low"
+  },
+  {
+    "text": "I get 'authentication failed' when opening the HR portal",
+    "category": "Account",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Please unlock my user account, I've been locked out since morning",
+    "category": "Account",
+    "urgency": "High"
+  },
+  {
+    "text": "Forgot my password and the reset link isn't arriving",
+    "category": "Account",
+    "urgency": "Medium"
+  },
+  {
+    "text": "My C drive is 98% full and I cannot save my files",
+    "category": "Disk",
+    "urgency": "High"
+  },
+  {
+    "text": "Storage is almost full, a warning popped up",
+    "category": "Disk",
+    "urgency": "Low"
+  },
+  {
+    "text": "Laptop is slow and disk usage shows 95%",
+    "category": "Disk",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Cannot install the update because there is not enough disk space",
+    "category": "Disk",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Out of storage space, my project files won't save and the deadline is today",
+    "category": "Disk",
+    "urgency": "High"
+  },
+  {
+    "text": "Please clean up my drive, it keeps saying low space",
+    "category": "Disk",
+    "urgency": "Low"
+  },
+  {
+    "text": "The office printer on floor 3 is jammed",
+    "category": "Other",
+    "urgency": "Low"
+  },
+  {
+    "text": "I need Microsoft Office installed on my new laptop",
+    "category": "Other",
+    "urgency": "Low"
+  },
+  {
+    "text": "My monitor keeps flickering",
+    "category": "Other",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Wi-Fi in the conference room is not working before our board meeting",
+    "category": "Other",
+    "urgency": "High"
+  },
+  {
+    "text": "Outlook keeps crashing when I open attachments",
+    "category": "Other",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Everything is broken, please help",
+    "category": "Other",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Need a new keyboard, two keys stopped working",
+    "category": "Other",
+    "urgency": "Low"
+  },
+  {
+    "text": "Can you recommend a good laptop bag?",
+    "category": "Other",
+    "urgency": "Low"
+  },
+  {
+    "text": "Cannot log in over VPN, it says my account is locked",
+    "category": "Account",
+    "urgency": "High"
+  },
+  {
+    "text": "Disk full error stopped my VPN software from updating",
+    "category": "Disk",
+    "urgency": "Medium"
+  }
+]
