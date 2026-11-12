@@ -1,6 +1,6 @@
 
 
-\# OpsAgent – Multi-Agent IT Helpdesk Automation
+# OpsAgent – Multi-Agent IT Helpdesk Automation
 
 
 
@@ -8,29 +8,29 @@ OpsAgent is an AI-powered IT helpdesk automation system that uses multiple AI ag
 
 
 
-\## Features
+## Features
 
 
 
-\- \*\*AI Triage:\*\* Classifies tickets by category and urgency.
+- **AI Triage:** Classifies tickets by category and urgency.
 
-\- \*\*AI Diagnosis:\*\* Identifies possible causes using service status and ticket evidence.
+- **AI Diagnosis:** Identifies possible causes using service status and ticket evidence.
 
-\- \*\*AI Resolution:\*\* Executes permitted automated actions and verifies outcomes.
+- **AI Resolution:** Executes permitted automated actions and verifies outcomes.
 
-\- \*\*Human Escalation:\*\* Escalates issues that cannot be safely resolved.
+- **Human Escalation:** Escalates issues that cannot be safely resolved.
 
-\- \*\*Authentication:\*\* JWT-based authentication with Admin and Employee roles.
+- **Authentication:** JWT-based authentication with Admin and Employee roles.
 
-\- \*\*Employee Portal:\*\* Submit and track IT support tickets.
+- **Employee Portal:** Submit and track IT support tickets.
 
-\- \*\*Admin Dashboard:\*\* Monitor tickets, agent activity, statistics and escalations.
+- **Admin Dashboard:** Monitor tickets, agent activity, statistics and escalations.
 
-\- \*\*Ticket Storage:\*\* MongoDB persistence.
+- **Ticket Storage:** MongoDB persistence.
 
 
 
-\## Technology Stack
+## Technology Stack
 
 
 
@@ -54,19 +54,19 @@ OpsAgent is an AI-powered IT helpdesk automation system that uses multiple AI ag
 
 
 
-\## Prerequisites
+## Prerequisites
 
 
 
-\- Windows 10 or 11
+- Windows 10 or 11
 
-\- Python 3.12 or newer (64-bit)
+- Python 3.12 or newer (64-bit)
 
-\- Git
+- Git
 
-\- Ollama (for local LLM execution)
+- Ollama (for local LLM execution)
 
-\- MongoDB Atlas account or an accessible MongoDB instance
+- MongoDB Atlas account or an accessible MongoDB instance
 
 
 
@@ -74,11 +74,11 @@ A dedicated GPU is not required. Ollama can run using CPU, although inference ma
 
 
 
-\## Installation
+## Installation
 
 
 
-\### 1. Clone the repository
+### 1. Clone the repository
 
 
 
@@ -92,7 +92,7 @@ cd opsagent
 
 
 
-\### 2. Run setup
+### 2. Run setup
 
 
 
@@ -116,7 +116,7 @@ This script creates the Python virtual environment, installs dependencies, prepa
 
 
 
-\### 3. Configure environment variables
+### 3. Configure environment variables
 
 
 
@@ -136,19 +136,19 @@ Configure the following:
 
 
 
-\- `LLM\_PROVIDER`: gemini, groq or ollama.
+- `LLM\_PROVIDER`: gemini, groq or ollama.
 
-\- `LLM\_MODEL`: model name.
+- `LLM\_MODEL`: model name.
 
-\- `MONGO\_URI`: your MongoDB connection string.
+- `MONGO\_URI`: your MongoDB connection string.
 
-\- `MONGO\_DB`: database name.
+- `MONGO\_DB`: database name.
 
-\- `JWT\_SECRET\_KEY`: generate your own secure secret.
+- `JWT\_SECRET\_KEY`: generate your own secure secret.
 
-\- `ADMIN\_USERNAME`: initial administrator username.
+- `ADMIN\_USERNAME`: initial administrator username.
 
-\- `ADMIN\_PASSWORD`: initial administrator password.
+- `ADMIN\_PASSWORD`: initial administrator password.
 
 
 
@@ -186,7 +186,7 @@ Never commit your `.env` file or share your credentials.
 
 
 
-\### 4. Start OpsAgent
+### 4. Start OpsAgent
 
 
 
@@ -206,7 +206,7 @@ The script starts the simulator, FastAPI backend and Streamlit dashboard.
 
 
 
-\## Access the Application
+## Access the Application
 
 
 
@@ -230,7 +230,7 @@ Administrators can create employee accounts through the application API.
 
 
 
-\## Running Tests
+## Running Tests
 
 
 
@@ -246,7 +246,7 @@ From the project directory:
 
 
 
-\## Project Structure
+## Project Structure
 
 
 
@@ -302,23 +302,23 @@ opsagent/
 
 
 
-\## Security Notes
+## Security Notes
 
 
 
-\- Never commit `.env` or API credentials.
+- Never commit `.env` or API credentials.
 
-\- Each developer should generate their own JWT secret.
+- Each developer should generate their own JWT secret.
 
-\- Use strong administrator passwords.
+- Use strong administrator passwords.
 
-\- Configure MongoDB network access appropriately.
+- Configure MongoDB network access appropriately.
 
-\- Do not expose development servers publicly.
+- Do not expose development servers publicly.
 
 
 
-\---
+---
 
 
 
