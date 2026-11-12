@@ -1,11 +1,31 @@
+# API and server
 fastapi
 uvicorn[standard]
+python-multipart
+
+# Data validation and configuration
 pydantic
 pydantic-settings
 python-dotenv
+
+# Database
 pymongo
+
+# AI and agent frameworks
 langchain
 langgraph
 langchain-google-genai
+langchain-groq
+langchain-ollama
+
+# Authentication and security
+PyJWT
+pwdlib[argon2]
+
+# Dashboard
+streamlit
+pandas
+
+# Testing
 pytest
 httpx

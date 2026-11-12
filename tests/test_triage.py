@@ -106,3 +106,29 @@ def test_none_output_falls_back(monkeypatch):
     result = triage.run_triage("Something is wrong")
 
     assert result.category == "Other"
+# Test 5: Quota errors should not trigger retries
+def test_quota_error_is_not_retried(monkeypatch):
+
+    chain = FakeChain(
+        error=RuntimeError("429 RESOURCE_EXHAUSTED")
+    )
+
+    monkeypatch.setattr(
+        triage,
+        "_get_chain",
+        lambda: chain
+    )
+
+    sleep_calls = []
+
+    monkeypatch.setattr(
+        triage.time,
+        "sleep",
+        lambda s: sleep_calls.append(s)
+    )
+
+    result = triage.run_triage("VPN is not working")
+
+    assert result.category == "Other"
+    assert chain.calls == 1
+    assert sleep_calls == []

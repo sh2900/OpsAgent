@@ -1,5 +1,24 @@
+# Python environment
 .venv/
 __pycache__/
-.env
-*.pyc
+*.py[cod]
 .pytest_cache/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Evaluation output files
+data/triage_eval_results*.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local debugging scripts
+try_diag.py
+try_triage.py
+
+# Local security scan helper
+scan_public.py

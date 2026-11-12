@@ -33,6 +33,20 @@ class TicketCreate(BaseModel):
     username: str = Field(..., examples=["alice"])
     description: str = Field(..., min_length=5)
 
+class EmployeeCreate(BaseModel):
+    """Information required to create an employee account."""
+
+    username: str = Field(
+        ...,
+        min_length=1,
+        max_length=64
+    )
+
+    password: str = Field(
+        ...,
+        min_length=12,
+        max_length=128
+    )
 
 # ---------- Agent Outputs ----------
 

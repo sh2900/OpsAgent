@@ -1,4 +1,3 @@
-
 [
   {
     "text": "I can't connect to the VPN from home, it keeps timing out",
@@ -66,9 +65,9 @@
     "urgency": "High"
   },
   {
-    "text": "Forgot my password and the reset link isn't arriving",
+    "text": "I forgot my primary company login password, and the password reset link is not arriving. I cannot sign in to any company systems.",
     "category": "Account",
-    "urgency": "Medium"
+    "urgency": "High"
   },
   {
     "text": "My C drive is 98% full and I cannot save my files",
@@ -113,10 +112,10 @@
   {
     "text": "My monitor keeps flickering",
     "category": "Other",
-    "urgency": "Medium"
+    "urgency": "Low"
   },
   {
-    "text": "Wi-Fi in the conference room is not working before our board meeting",
+    "text": "The conference room Wi-Fi is not working, and our board meeting starts in 30 minutes.",
     "category": "Other",
     "urgency": "High"
   },
@@ -126,9 +125,9 @@
     "urgency": "Medium"
   },
   {
-    "text": "Everything is broken, please help",
+    "text": "I cannot access any of my essential work systems. Everything I need to work is unavailable.",
     "category": "Other",
-    "urgency": "Medium"
+    "urgency": "High"
   },
   {
     "text": "Need a new keyboard, two keys stopped working",

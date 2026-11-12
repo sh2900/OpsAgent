@@ -21,6 +21,10 @@ def tickets():
     """Return the tickets collection."""
     return _client()[settings.mongo_db]["tickets"]
 
+def users():
+    """Return the users collection."""
+    return _client()[settings.mongo_db]["users"]
+
 
 def init_db() -> None:
     """Create indexes for faster ticket retrieval."""
@@ -32,6 +36,7 @@ def init_db() -> None:
     )
 
     tickets().create_index("status")
+    users().create_index("username", unique=True)
 
 
 def _clean(doc: Optional[dict]) -> Optional[dict]:
@@ -91,13 +96,21 @@ def append_trace(ticket_id: str, step: dict) -> None:
     )
 
 
+
 def list_tickets(
     status: Optional[str] = None,
-    limit: int = 100
+    limit: int = 100,
+    username: Optional[str] = None
 ) -> list[dict]:
-    """Retrieve tickets, optionally filtered by status."""
+    """Retrieve tickets, optionally filtered by status and employee."""
 
-    query = {"status": status} if status else {}
+    query = {}
+
+    if status:
+        query["status"] = status
+
+    if username:
+        query["username"] = username
 
     cursor = (
         tickets()
@@ -107,7 +120,6 @@ def list_tickets(
     )
 
     return [_clean(doc) for doc in cursor]
-
 
 def get_stats() -> dict:
     """Generate statistics for the dashboard."""

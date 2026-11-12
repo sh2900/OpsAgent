@@ -31,6 +31,16 @@ Rules:
 - Choose a fix only if the status shows a problem it can plausibly solve.
 - If the cause needs human action (expired certificate, account disabled by HR, hardware
   fault, unknown state), set recommended_action to null.
+- The probable_cause must be directly supported by the raw status.
+- Do not speculate about underlying technical causes that the
+  monitoring system has not identified.
+- Do not use assumptions such as overloaded servers, network
+  misconfiguration, hardware faults or configuration errors unless
+  explicitly established by the ticket or raw status.
+- If the raw status says cause is gateway_timeout, describe it as
+  a VPN gateway timeout. Do not speculate about why it occurred.
+- Prefer a short, evidence-based explanation over a detailed
+  speculative explanation.
 - probable_cause: one short sentence a technician would understand."""
 
 
