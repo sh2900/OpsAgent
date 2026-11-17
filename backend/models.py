@@ -17,7 +17,8 @@ TicketStatus = Literal[
     "open",
     "processing",
     "resolved",
-    "escalated"
+    "escalated",
+    "closed"
 ]
 
 
@@ -32,6 +33,8 @@ class TicketCreate(BaseModel):
 
     username: str = Field(..., examples=["alice"])
     description: str = Field(..., min_length=5)
+    attachment_name: Optional[str] = None
+    attachment_size: Optional[int] = None
 
 class EmployeeCreate(BaseModel):
     """Information required to create an employee account."""
@@ -47,6 +50,27 @@ class EmployeeCreate(BaseModel):
         min_length=12,
         max_length=128
     )
+
+class PasswordResetRequest(BaseModel):
+    """Information required to reset an account password."""
+
+    username: str = Field(
+        ...,
+        min_length=1,
+        max_length=64
+    )
+
+    new_password: str = Field(
+        ...,
+        min_length=12,
+        max_length=128
+    )
+
+class TicketAdminAction(BaseModel):
+    """Action taken by an IT administrator on an escalated ticket."""
+
+    status: Literal["resolved", "escalated", "closed"] = "resolved"
+    admin_notes: str = Field(..., min_length=2, description="Explanation of manual resolution or action taken")
 
 # ---------- Agent Outputs ----------
 
@@ -130,6 +154,12 @@ class Ticket(BaseModel):
     trace: list[TraceStep] = Field(default_factory=list)
 
     processing_seconds: Optional[float] = None
+    admin_notes: Optional[str] = None
+    resolved_by: Optional[str] = None
+    escalated_at: Optional[datetime] = None
+    resolved_at: Optional[datetime] = None
+    attachment_name: Optional[str] = None
+    attachment_size: Optional[int] = None
 
     created_at: datetime = Field(default_factory=now)
     updated_at: datetime = Field(default_factory=now)

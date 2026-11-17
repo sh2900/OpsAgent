@@ -148,5 +148,105 @@
     "text": "Disk full error stopped my VPN software from updating",
     "category": "Disk",
     "urgency": "Medium"
+  },
+  {
+    "text": "Unable to reach staging database from my home fiber connection, remote gateway error",
+    "category": "VPN",
+    "urgency": "High"
+  },
+  {
+    "text": "VPN tunnel drops whenever I start uploading large design files",
+    "category": "VPN",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Can I get OpenVPN profile configuration for my Ubuntu laptop?",
+    "category": "VPN",
+    "urgency": "Low"
+  },
+  {
+    "text": "My corporate SSO keeps looping back to the login screen and won't authenticate",
+    "category": "Account",
+    "urgency": "High"
+  },
+  {
+    "text": "Entered my PIN incorrectly 3 times on smartcard, now account says suspended",
+    "category": "Account",
+    "urgency": "High"
+  },
+  {
+    "text": "Requesting access permission to the marketing shared drive folder",
+    "category": "Account",
+    "urgency": "Low"
+  },
+  {
+    "text": "Disk quota reached on shared drive Z:, cannot save client contracts",
+    "category": "Disk",
+    "urgency": "High"
+  },
+  {
+    "text": "Drive C: is at 94% capacity, system is feeling very laggy and slow",
+    "category": "Disk",
+    "urgency": "Medium"
+  },
+  {
+    "text": "How do I map a network drive to free up local hard disk space?",
+    "category": "Disk",
+    "urgency": "Low"
+  },
+  {
+    "text": "The color laser printer on 3rd floor is printing black streaks across pages",
+    "category": "Other",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Zoom audio is not detecting my USB headset microphone during meetings",
+    "category": "Other",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Where can I find the company policy on remote work hours?",
+    "category": "Other",
+    "urgency": "Low"
+  },
+  {
+    "text": "Total power outage in meeting room 4, none of the wall outlets work",
+    "category": "Other",
+    "urgency": "High"
+  },
+  {
+    "text": "Password expiration warning says I have 3 days left to change it",
+    "category": "Account",
+    "urgency": "Low"
+  },
+  {
+    "text": "WireGuard client handshake fails after updating Windows 11",
+    "category": "VPN",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Cannot download Docker images due to 'no space left on device'",
+    "category": "Disk",
+    "urgency": "High"
+  },
+  {
+    "text": "Need approval to purchase an external SSD for project backups",
+    "category": "Other",
+    "urgency": "Low"
+  },
+  {
+    "text": "VPN connects but I cannot resolve internal company DNS hostnames",
+    "category": "VPN",
+    "urgency": "Medium"
+  },
+  {
+    "text": "Locked out of Windows workstation after returning from lunch break",
+    "category": "Account",
+    "urgency": "High"
+  },
+  {
+    "text": "External monitor connected via HDMI keeps flickering black",
+    "category": "Other",
+    "urgency": "Medium"
   }
 ]

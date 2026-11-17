@@ -61,6 +61,31 @@ def _get_chain():
 
 # ---------- Helpers ----------
 
+def _check_human_intervention_needed(description: str) -> Optional[tuple[str, str]]:
+    """Detect specific failure causes in ticket text that strictly require human administrative intervention."""
+    desc = description.lower()
+
+    if any(k in desc for k in (
+        "certificate expired", "expired certificate", "cert expired",
+        "certificate error", "cert error", "expired cert", "certificate has expired"
+    )):
+        return (
+            "cert_expired",
+            "Client SSL/VPN certificate has expired and requires manual re-issuance by an IT administrator."
+        )
+
+    if any(k in desc for k in (
+        "disabled by hr", "hr disabled", "hr suspension",
+        "account deactivated by hr", "hr hold"
+    )):
+        return (
+            "disabled_by_hr",
+            "Account access restricted by HR department policy; requires HR administrative authorization."
+        )
+
+    return None
+
+
 def _status_of(service: str, raw: dict) -> str:
     if raw.get("error") == "not_found":
         return "user_not_found"
@@ -206,6 +231,18 @@ def run_diagnosis(
 
     status = _status_of(category, raw)
 
+    # Detect explicit unfixable issues requiring human intervention (e.g., certificate renewal, HR lock)
+    human_needed = _check_human_intervention_needed(description)
+    if human_needed:
+        override_status, override_cause = human_needed
+        return DiagnosisResult(
+            service=category,
+            service_status=override_status,
+            details=raw,
+            probable_cause=override_cause,
+            recommended_action=None
+        )
+
     if status in HEALTHY[category]:
         return DiagnosisResult(
             service=category,
@@ -242,11 +279,10 @@ def run_diagnosis(
         cause = llm.probable_cause or fallback_cause
         action = llm.recommended_action
 
-        # Reject fixes that are not approved for this service.
+        # Use the safe rule-based action if the LLM
+        # returns no action or recommends an invalid action.
         if action not in tools.ALLOWED_ACTIONS[category]:
-            action = (
-                None if action is None else fallback_action
-            )
+            action = fallback_action
 
     return DiagnosisResult(
         service=category,
@@ -255,3 +291,4 @@ def run_diagnosis(
         probable_cause=cause,
         recommended_action=action
     )
+

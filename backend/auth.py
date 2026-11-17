@@ -132,6 +132,50 @@ def create_employee_user(
     }
 
 
+def reset_user_password(
+    username: str,
+    new_password: str
+) -> dict:
+    """Reset an account password."""
+
+    username = username.strip()
+
+    if not username:
+        raise HTTPException(
+            status_code=400,
+            detail="Username is required."
+        )
+
+    if len(new_password) < 12:
+        raise HTTPException(
+            status_code=400,
+            detail="Password must contain at least 12 characters."
+        )
+
+    user = db.users().find_one({"username": username})
+
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail=f"User '{username}' not found."
+        )
+
+    db.users().update_one(
+        {"username": username},
+        {
+            "$set": {
+                "password_hash": hash_password(new_password),
+                "updated_at": datetime.now(timezone.utc)
+            }
+        }
+    )
+
+    return {
+        "username": username,
+        "message": f"Password for user '{username}' has been successfully reset."
+    }
+
+
 # ---------- Login Authentication ----------
 
 def authenticate_user(
