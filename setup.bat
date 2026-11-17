@@ -9,16 +9,26 @@ echo ========================================
 
 echo.
 echo Checking Python...
-python --version
-if errorlevel 1 goto python_error
+set "PY_CMD=python"
+python --version >nul 2>&1
+if errorlevel 1 (
+    py -3 --version >nul 2>&1
+    if not errorlevel 1 (
+        set "PY_CMD=py -3"
+    ) else (
+        goto python_error
+    )
+)
 
-python -c "import sys; raise SystemExit(0 if sys.version_info >= (3,12) else 1)"
+%PY_CMD% --version
+
+%PY_CMD% -c "import sys; raise SystemExit(0 if sys.version_info >= (3,10) else 1)"
 if errorlevel 1 goto python_version_error
 
 echo.
 echo Creating virtual environment...
 if not exist ".venv\Scripts\python.exe" (
-    python -m venv .venv
+    %PY_CMD% -m venv .venv
 )
 if errorlevel 1 goto error
 
@@ -35,6 +45,8 @@ echo Preparing environment configuration...
 if not exist ".env" (
     copy ".env.example" ".env" >nul
     echo Created .env from template.
+    ".venv\Scripts\python.exe" -c "import secrets, pathlib; p = pathlib.Path('.env'); c = p.read_text(); c = c.replace('GENERATE_YOUR_OWN_SECRET', secrets.token_urlsafe(32)).replace('CHANGE_THIS_TO_A_STRONG_PASSWORD', 'admin_password_123'); p.write_text(c)"
+    echo Automatically generated JWT Secret Key and set default Admin Password (admin_password_123).
 ) else (
     echo Existing .env preserved.
 )
@@ -97,7 +109,7 @@ pause
 exit /b 1
 
 :python_version_error
-echo ERROR: Python 3.12 or newer is required.
+echo ERROR: Python 3.10 or newer is required.
 pause
 exit /b 1
 

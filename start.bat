@@ -25,13 +25,13 @@ echo.
 echo Checking environment configuration...
 
 findstr /C:"PASTE_YOUR_MONGODB_ATLAS_URI_HERE" .env >nul
-if not errorlevel 1 goto config_error
+if not errorlevel 1 goto mongo_missing_error
 
 findstr /C:"GENERATE_YOUR_OWN_SECRET" .env >nul
-if not errorlevel 1 goto config_error
+if not errorlevel 1 goto jwt_missing_error
 
 findstr /C:"CHANGE_THIS_TO_A_STRONG_PASSWORD" .env >nul
-if not errorlevel 1 goto config_error
+if not errorlevel 1 goto admin_pwd_error
 
 echo Configuration placeholders checked.
 
@@ -59,17 +59,21 @@ if errorlevel 1 goto ollama_missing
 
 ollama list >nul 2>&1
 if errorlevel 1 (
-    echo Starting Ollama...
+    echo Starting Ollama service...
     start "OpsAgent - Ollama" cmd /k "ollama serve"
-    timeout /t 8 /nobreak >nul
+    timeout /t 5 /nobreak >nul
 )
 
 ollama list | findstr /I /C:"%LLM_MODEL%" >nul
 if errorlevel 1 (
-    echo ERROR: Model %LLM_MODEL% is not installed.
-    echo Run: ollama pull %LLM_MODEL%
-    pause
-    exit /b 1
+    echo Model %LLM_MODEL% is not yet downloaded.
+    echo Downloading %LLM_MODEL% (this may take a few minutes)...
+    ollama pull %LLM_MODEL%
+    if errorlevel 1 (
+        echo ERROR: Model download failed.
+        pause
+        exit /b 1
+    )
 )
 
 :start_services
@@ -99,14 +103,52 @@ echo ========================================
 pause
 exit /b 0
 
+:mongo_missing_error
+echo.
+echo ========================================================
+echo ERROR: MONGO_URI is not configured in .env!
+echo Please open .env in Notepad and paste your MongoDB URI:
+echo   MONGO_URI=mongodb+srv://...
+echo (Ask your team lead for the shared MongoDB Atlas URI)
+echo ========================================================
+pause
+exit /b 1
+
+:jwt_missing_error
+echo.
+echo ========================================================
+echo ERROR: JWT_SECRET_KEY is still set to the placeholder in .env!
+echo Please set a random string for JWT_SECRET_KEY in .env.
+echo ========================================================
+pause
+exit /b 1
+
+:admin_pwd_error
+echo.
+echo ========================================================
+echo ERROR: ADMIN_PASSWORD is still set to placeholder in .env!
+echo Please set an admin password in .env (e.g., admin_password_123).
+echo ========================================================
+pause
+exit /b 1
+
 :config_error
+echo.
+echo ========================================================
 echo ERROR: Your .env configuration is incomplete.
 echo Check MongoDB URI, LLM settings, JWT secret and admin credentials.
+echo ========================================================
 pause
 exit /b 1
 
 :ollama_missing
-echo ERROR: Ollama is required for the selected provider.
-echo Install Ollama and run setup.bat again.
+echo.
+echo ========================================================
+echo ERROR: Ollama is not installed or not found in PATH!
+echo 1. Download and install Ollama from: https://ollama.com
+echo 2. Run start.bat again after installing.
+echo.
+echo (Or set LLM_PROVIDER=gemini and provide GOOGLE_API_KEY in .env)
+echo ========================================================
 pause
 exit /b 1
