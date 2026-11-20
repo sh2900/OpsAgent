@@ -20,9 +20,10 @@ def get_llm():
         if not settings.google_api_key:
             raise ValueError("GOOGLE_API_KEY is missing from environment")
 
-        gemini_model = model.strip() if model and "gemini" in model.lower() else "gemini-2.0-flash"
-        if "3.8" in gemini_model:
-            gemini_model = "gemini-2.0-flash"
+        # Always use active gemini-2.0-flash (automatically replaces deprecated gemini-1.5-flash)
+        gemini_model = "gemini-2.0-flash"
+        if model and ("2.0" in model or "2.5" in model):
+            gemini_model = model.strip()
 
         return ChatGoogleGenerativeAI(
             model=gemini_model,
