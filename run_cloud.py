@@ -13,6 +13,8 @@ import time
 
 def main():
     port = os.environ.get("PORT", "8501")
+    os.environ["GOOGLE_GENAI_API_VERSION"] = "v1beta"
+    os.environ["GOOGLE_API_VERSION"] = "v1beta"
     print(f"=== Starting OpsAgent Cloud Services (Public Port: {port}) ===")
 
     # 1. Start Simulator on internal port 8001
