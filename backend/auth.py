@@ -76,6 +76,11 @@ def ensure_admin_user() -> None:
                 "Configured administrator username already belongs "
                 "to a non-admin account."
             )
+        # Synchronize password hash with current environment configuration
+        db.users().update_one(
+            {"username": username},
+            {"$set": {"password_hash": hash_password(password), "active": True}}
+        )
         return
 
     db.users().insert_one({
