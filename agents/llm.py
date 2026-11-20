@@ -15,10 +15,12 @@ def get_llm():
         from langchain_google_genai import ChatGoogleGenerativeAI
 
         if not settings.google_api_key:
-            raise ValueError("GOOGLE_API_KEY is missing from .env")
+            raise ValueError("GOOGLE_API_KEY is missing from environment")
+
+        gemini_model = model if model and "gemini" in model.lower() else "gemini-1.5-flash"
 
         return ChatGoogleGenerativeAI(
-            model=model,
+            model=gemini_model,
             google_api_key=settings.google_api_key,
             temperature=0,
         )
@@ -27,10 +29,16 @@ def get_llm():
         from langchain_groq import ChatGroq
 
         if not settings.groq_api_key:
-            raise ValueError("GROQ_API_KEY is missing from .env")
+            raise ValueError("GROQ_API_KEY is missing from environment")
+
+        groq_model = (
+            model
+            if model and ("llama" in model.lower() or "mixtral" in model.lower() or "gemma" in model.lower())
+            else "llama-3.1-8b-instant"
+        )
 
         return ChatGroq(
-            model=model,
+            model=groq_model,
             api_key=settings.groq_api_key,
             temperature=0,
         )
