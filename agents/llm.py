@@ -1,7 +1,54 @@
 
+import logging
 from functools import lru_cache
 
 from backend.config import settings
+
+log = logging.getLogger(__name__)
+
+
+def _detect_best_gemini_model(api_key: str, requested: str | None = None) -> str:
+    """
+    Dynamically discover which Gemini model is active on this API key.
+    Eliminates all 404 NOT_FOUND errors caused by Google model deprecations.
+    """
+    candidates = [
+        "gemini-2.5-flash",
+        "gemini-2.0-flash",
+        "gemini-2.0-flash-exp",
+        "gemini-1.5-flash",
+        "gemini-1.5-flash-latest",
+        "gemini-flash-latest",
+        "gemini-1.5-pro",
+    ]
+    if requested and "gemini" in requested.lower() and requested not in candidates:
+        candidates.insert(0, requested.strip())
+
+    try:
+        from google import genai
+        client = genai.Client(api_key=api_key)
+        available = set()
+        for m in client.models.list():
+            if m.name:
+                available.add(m.name)
+                available.add(m.name.split("/")[-1])
+
+        for c in candidates:
+            if c in available or f"models/{c}" in available:
+                print(f"[Gemini Discovery] Selected verified active model: {c}")
+                return c
+
+        for m in available:
+            if "flash" in m.lower():
+                picked = m.split("/")[-1]
+                print(f"[Gemini Discovery] Fallback to available flash model: {picked}")
+                return picked
+
+    except Exception as e:
+        print(f"[Gemini Discovery] Model list check: {e}")
+
+    # Fallback to current release
+    return "gemini-2.5-flash"
 
 
 @lru_cache(maxsize=1)
@@ -17,10 +64,7 @@ def get_llm():
         if not settings.google_api_key:
             raise ValueError("GOOGLE_API_KEY is missing from environment")
 
-        # Use active gemini-2.0-flash
-        gemini_model = "gemini-2.0-flash"
-        if model and ("2.0" in model or "2.5" in model):
-            gemini_model = model.strip()
+        gemini_model = _detect_best_gemini_model(settings.google_api_key, model)
 
         return ChatGoogleGenerativeAI(
             model=gemini_model,
