@@ -58,23 +58,26 @@ where ollama >nul 2>&1
 if errorlevel 1 goto ollama_missing
 
 ollama list >nul 2>&1
-if errorlevel 1 (
-    echo Starting Ollama service...
-    start "OpsAgent - Ollama" cmd /k "ollama serve"
-    timeout /t 5 /nobreak >nul
-)
+if not errorlevel 1 goto check_model
 
+echo Starting Ollama service...
+start "OpsAgent - Ollama" cmd /k "ollama serve"
+timeout /t 5 /nobreak >nul
+
+:check_model
 ollama list | findstr /I /C:"%LLM_MODEL%" >nul
-if errorlevel 1 (
-    echo Model %LLM_MODEL% is not yet downloaded.
-    echo Downloading %LLM_MODEL% (this may take a few minutes)...
-    ollama pull %LLM_MODEL%
-    if errorlevel 1 (
-        echo ERROR: Model download failed.
-        pause
-        exit /b 1
-    )
-)
+if not errorlevel 1 goto start_services
+
+echo Model %LLM_MODEL% is not yet downloaded.
+echo Downloading %LLM_MODEL% - this may take a few minutes...
+ollama pull %LLM_MODEL%
+if errorlevel 1 goto model_pull_fail
+goto start_services
+
+:model_pull_fail
+echo ERROR: Model download failed.
+pause
+exit /b 1
 
 :start_services
 
