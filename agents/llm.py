@@ -12,15 +12,12 @@ def get_llm():
     model = settings.llm_model
 
     if provider == "gemini":
-        import os
-        os.environ["GOOGLE_GENAI_API_VERSION"] = "v1beta"
-        os.environ["GOOGLE_API_VERSION"] = "v1beta"
         from langchain_google_genai import ChatGoogleGenerativeAI
 
         if not settings.google_api_key:
             raise ValueError("GOOGLE_API_KEY is missing from environment")
 
-        # Always use active gemini-2.0-flash (automatically replaces deprecated gemini-1.5-flash)
+        # Use active gemini-2.0-flash
         gemini_model = "gemini-2.0-flash"
         if model and ("2.0" in model or "2.5" in model):
             gemini_model = model.strip()
