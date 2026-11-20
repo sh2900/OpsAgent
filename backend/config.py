@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     llm_provider: str = "gemini"
 
     # Shared model configuration
-    llm_model: str = "gemini-1.5-flash"
+    llm_model: str = "gemini-2.0-flash"
 
     # API keys
     google_api_key: str = ""
